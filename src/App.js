@@ -24,16 +24,21 @@ function App() {
   var starss = [];
   
   function getTop4(){
-    for( var i = 0; i < 4; i++){
+    for(var i = 0; i < 4; i++){
       for(var j=0; j < countStars.length; j++){
         var max = Math.max(...countStars);
-        if(countStars[j] === max){
+        if(max === 0){
+          getIndexStars = [1,2,3,4];
+        } else if(max === countStars[j]){
           getIndexStars[i] = j;
           countStars[j] = 0;
-        } 
+          break;
+        }
+
+        }
       }
     }
-  }
+
 
   async function requestData(e){
     e.preventDefault();
@@ -44,8 +49,11 @@ function App() {
       getRepos.data.map((repos, index) =>(
         countStars[index] = getRepos.data[index].stargazers_count
       ))
-      console.log(getRepos);
+      console.log(countStars);
       getTop4();
+
+      console.log(getRepos);
+      console.log(getIndexStars);
 
       getIndexStars.map((rep, index) => (
         repos[index] = getRepos.data[rep].name
