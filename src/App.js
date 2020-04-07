@@ -11,23 +11,51 @@ function App() {
   const [userLabel, setUserLabel] = useState('');
   const [urlImage, setUrl] = useState('');
   const [bio, setBio] = useState('');
-  const repos = ['repo', 'repo', 'repo', 'repo'];
+  const [countR, setRepo] = useState('');
+  const [countF, setFoll] = useState('');
+
+  const repos = ['repo1', 'repo2', 'repo3', 'repo4'];
+
+  var countStars = [];
+  var getIndexStars = [];
+
+  function getIndex(element, index, array){
+    for (var i = 0; i < array.length; i++) {
+      if(element > array[i]){
+        getIndexStars[i] = index;
+      }
+   }
+  }
 
   async function requestData(e){
     e.preventDefault();
     try{
       const response = await api.get(`/users/${user}`);
+      const getRepos = await api.get(`users/${user}/repos`)
+
+      getRepos.data.map((repos, index) =>(
+        countStars[index] = getRepos.data[index].stargazers_count
+      ))
+
+    console.log(getIndexStars);
 
       const avatar_url = response.data.avatar_url;
       const profile_bio = response.data.bio;
-      
+      const countRepo = response.data.public_repos;
+      const countFollows = response.data.followers;
+
+
+      setRepo(countRepo);
+      setFoll(countFollows);
       setBio(profile_bio);
       setUrl(avatar_url);
       setUserLabel(user);
-      console.log(response);
+
+
     } catch(err){
       alert('Invalid Username');
     }
+    countStars.forEach(getIndex);
   }
 
   return (
@@ -49,17 +77,18 @@ function App() {
         {userLabel !== '' ? (
           <img src={urlImage} width="150px" height="150px" alt="img"/>           
         ) : <img src={logo2} alt="img"/>}
-            <div>
               {userLabel !== '' ? (
+                <div>
                 <i>{bio}</i>
+                <p>Número de Repositórios: {countR}</p>
+                <p>Número de Seguidores: {countF}</p>
+                </div>
               ): <p>Encontre informações sobre perfis do github!</p>}
-            </div>
           </div>
-          <p className="user-p">Top 4 Repositórios:</p>
         </div> 
       <section className="section-items">
-        {repos.map(item =>(
-          <div>
+        {repos.map(index =>(
+          <div key={index}>
           <p> NOME </p>
           <div>
           <p> 
