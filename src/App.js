@@ -13,18 +13,26 @@ function App() {
   const [bio, setBio] = useState('');
   const [countR, setRepo] = useState('');
   const [countF, setFoll] = useState('');
+  const [name, setName] = useState([]);
+  const [stars, setStars] = useState(0);
+  const [forks, setForks] = useState(0);
 
-  const repos = ['repo1', 'repo2', 'repo3', 'repo4'];
-
+  var repos = [];
   var countStars = [];
   var getIndexStars = [];
-
-  function getIndex(element, index, array){
-    for (var i = 0; i < array.length; i++) {
-      if(element > array[i]){
-        getIndexStars[i] = index;
+  var forkss = [];
+  var starss = [];
+  
+  function getTop4(){
+    for( var i = 0; i < 4; i++){
+      for(var j=0; j < countStars.length; j++){
+        var max = Math.max(...countStars);
+        if(countStars[j] === max){
+          getIndexStars[i] = j;
+          countStars[j] = 0;
+        } 
       }
-   }
+    }
   }
 
   async function requestData(e){
@@ -36,8 +44,23 @@ function App() {
       getRepos.data.map((repos, index) =>(
         countStars[index] = getRepos.data[index].stargazers_count
       ))
+      console.log(getRepos);
+      getTop4();
 
-    console.log(getIndexStars);
+      getIndexStars.map((rep, index) => (
+        repos[index] = getRepos.data[rep].name
+      ))
+      getIndexStars.map((rep, index) => (
+        starss[index] = getRepos.data[rep].stargazers_count
+      ))
+      getIndexStars.map((rep, index) => (
+        forkss[index] = getRepos.data[rep].forks_count
+      ))
+
+
+      setName(repos);
+      setForks(forkss);
+      setStars(starss);
 
       const avatar_url = response.data.avatar_url;
       const profile_bio = response.data.bio;
@@ -50,12 +73,12 @@ function App() {
       setBio(profile_bio);
       setUrl(avatar_url);
       setUserLabel(user);
+      setUser('');
 
 
     } catch(err){
       alert('Invalid Username');
     }
-    countStars.forEach(getIndex);
   }
 
   return (
@@ -87,15 +110,17 @@ function App() {
           </div>
         </div> 
       <section className="section-items">
-        {repos.map(index =>(
+        {name.map((names, index) =>(
           <div key={index}>
-          <p> NOME </p>
+            <div>
+            <p>{name[index]}</p>
+            </div>
           <div>
           <p> 
-          <GoRepoForked size={16} color="#F2F2F2" />30
+          <GoRepoForked size={16} color="#F2F2F2" /> {forks[index]}
           </p>
           <p> 
-          <GoStar size={16} color="#F2F2F2" />20
+          <GoStar size={16} color="#F2F2F2" /> {stars[index]}
           </p>
           </div>
         </div>

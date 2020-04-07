@@ -98,28 +98,27 @@ body{
   background-color:#24292e;
   color: #f6f8fa;
   font-weight: bold;
-  height: 40%;
-  width: 20%;
+  height: 60%;
+  width: 22%;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-around;
 }
 
 .section-items div div{
   display: flex;
-  width: 70%;
+  width: 100%;
+  height: 50%;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
 }
 
 .section-items div p{
+  font-size: 13px;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .userInfo-container{
