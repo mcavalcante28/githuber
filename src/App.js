@@ -28,7 +28,10 @@ function App() {
       for(var j=0; j < countStars.length; j++){
         var max = Math.max(...countStars);
         if(max === 0){
-          getIndexStars = [1,2,3,4];
+          for(var k = i; k<4; k++){
+            getIndexStars[k] = k;
+          }
+          break;
         } else if(max === countStars[j]){
           getIndexStars[i] = j;
           countStars[j] = 0;
