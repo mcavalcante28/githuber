@@ -17,7 +17,7 @@ body{
   justify-content: flex-start;
   border-radius: 30px;
   flex-direction: row;
-  border: 2px solid #FFF;
+  border: 2px solid #f6f8fa;
 }
 
 .left-container{
@@ -43,7 +43,7 @@ body{
 
 .user-form p{
   font-size: 30px;
-  color: #F2F2F2;
+  color: #f6f8fa;
 }
 
 .button{
@@ -51,7 +51,7 @@ body{
   width: 50%;
   height: 8%;
   transition-duration: 0.2s;
-  background-color: #F2F2F2;
+  background-color: #f6f8fa;
   font-size: 16px;
   color: #24292e;
   font-weight: bold;
@@ -59,7 +59,7 @@ body{
 
 .button:hover{
   background-color: #24292e;
-  color: #F2F2F2;
+  color: #f6f8fa;
 }
 
 .input-class{
@@ -84,7 +84,7 @@ body{
 }
 
 .section-items{
-  background-color:#F2F2F2;
+  background-color:#f6f8fa;
   display: flex;
   width: 90%;
   height: 30%;
@@ -96,7 +96,7 @@ body{
 
 .section-items div{
   background-color:#24292e;
-  color: #F2F2F2;
+  color: #f6f8fa;
   font-weight: bold;
   height: 40%;
   width: 20%;
@@ -124,7 +124,7 @@ body{
 
 .userInfo-container{
   display: flex;
-  color: #F2F2F2;
+  color: #f6f8fa;
   flex-direction: column;
   width: 90%;
   height: 50%;
@@ -151,7 +151,18 @@ body{
   flex-direction: column;
 }
 
+.userInfo-container i{
+  font-size: 12px;
+  font-weight: lighter;
+}
 .userInfo-container p{
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: lighter;
 }
 
+
+.div-informations{
+  border: 2px solid #f6f8fa;
+  border-radius: 30px;
+  padding: 40px;
+}
