@@ -1,12 +1,16 @@
-import React,{useState} from 'react';
-import logo3 from './assets/logo3.png'
+import React,{useState, useEffect} from 'react';
 import logo2 from './assets/logo2.png'
+import blacklogo2 from './assets/blacklogo2.png'
+import logo3 from './assets/logo3.png'
+import blacklogo3 from './assets/blacklogo3.png'
+import {FaLightbulb} from 'react-icons/fa'
 import { GoRepoForked, GoStar } from "react-icons/go";
-import './styles.css'
 import api from './services/api'
+import {GlobalStyles} from './globalStyle'
+import { ThemeProvider } from 'styled-components'
+
 
 function App() {
-
   const [user, setUser] = useState('');
   const [userLabel, setUserLabel] = useState('');
   const [urlImage, setUrl] = useState('');
@@ -16,6 +20,9 @@ function App() {
   const [name, setName] = useState([]);
   const [stars, setStars] = useState(0);
   const [forks, setForks] = useState(0);
+  const [theme, setTheme] = useState(false);
+
+  console.log(theme);
 
   var repos = [];
   var countStars = [];
@@ -93,12 +100,24 @@ function App() {
     }
   }
 
+  function toggleMode(){
+    setTheme(!theme);
+    localStorage.setItem('theme', theme);
+  }
+
+
   return (
+    <ThemeProvider theme={{mode: theme}}>
+      <>
+    <GlobalStyles/>
     <div className="full-container">
       <div className="left-container">
+      <button onClick={() => toggleMode()} className="switch-style">
+        <FaLightbulb size={16} color={!theme ? "#0072b1" : "#FFF000"} />
+      </button>
         <form className="user-form" onSubmit={requestData}>
-          <img src={logo3} alt="img"/>
-        <p>Digite um username </p>
+          <img src={!theme ? blacklogo3 : logo3} alt="img"/>
+        <p>Digite um username</p>
         <input placeholder="Username" value={user} onChange={e => setUser(e.target.value)} className="input-class"/>
         <button type="submit" className="button"> Confirmar </button>
         </form>
@@ -111,7 +130,7 @@ function App() {
           <div className= 'div-informations'>
         {userLabel !== '' ? (
           <img src={urlImage} width="150px" height="150px" alt="img"/>           
-        ) : <img src={logo2} alt="img"/>}
+        ) : <img src={!theme ? blacklogo2 : logo2} alt="img"/>}
               {userLabel !== '' ? (
                 <div>
                 <i>{bio}</i>
@@ -129,10 +148,10 @@ function App() {
             </div>
           <div>
           <p> 
-          <GoRepoForked size={16} color="#F2F2F2" /> {forks[index]}
+          <GoRepoForked size={16} color={!theme ? "#24292e" : "#F2F2F2"} /> {forks[index]}
           </p>
           <p> 
-          <GoStar size={16} color="#F2F2F2" /> {stars[index]}
+          <GoStar size={16} color={!theme ? "#24292e" : "#F2F2F2"} /> {stars[index]}
           </p>
           </div>
         </div>
@@ -140,7 +159,8 @@ function App() {
       </section>
       </div>
     </div>
-
+    </>
+    </ThemeProvider>
   );
 }
 
