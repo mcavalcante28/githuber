@@ -160,9 +160,9 @@ body{
   font-size: 12px;
   font-weight: lighter;
 }
-
-
 .div-informations{
+  justify-content: space-around;
+  align-items: center;
   border: 2px solid #f6f8fa;
   border-radius: 30px;
   padding: 40px;

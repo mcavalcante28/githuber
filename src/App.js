@@ -29,7 +29,7 @@ function App() {
         var max = Math.max(...countStars);
         if(max === 0){
           for(var k = i; k<4; k++){
-            getIndexStars[k] = k;
+            getIndexStars[k] = Math.floor(Math.random()*(countStars.length - 1));
           }
           break;
         } else if(max === countStars[j]){
@@ -89,6 +89,7 @@ function App() {
 
     } catch(err){
       alert('Invalid Username');
+      setUser('');
     }
   }
 
