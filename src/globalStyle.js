@@ -81,6 +81,7 @@ body{
   height: 100%;
   flex-direction: column;
   border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
   justify-content: space-around;
   align-items: center;
   transition-duration: 0.3s;

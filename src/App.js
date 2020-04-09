@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import logo2 from './assets/logo2.png'
 import blacklogo2 from './assets/blacklogo2.png'
 import logo3 from './assets/logo3.png'
@@ -8,6 +8,7 @@ import { GoRepoForked, GoStar } from "react-icons/go";
 import api from './services/api'
 import {GlobalStyles} from './globalStyle'
 import { ThemeProvider } from 'styled-components'
+import { useLocalStorage } from "../src/hooks/useLocalStorage";
 
 
 function App() {
@@ -20,9 +21,7 @@ function App() {
   const [name, setName] = useState([]);
   const [stars, setStars] = useState(0);
   const [forks, setForks] = useState(0);
-  const [theme, setTheme] = useState(false);
-
-  console.log(theme);
+  const [themeString, setThemeString] = useLocalStorage("theme", true);
 
   var repos = [];
   var countStars = [];
@@ -35,10 +34,7 @@ function App() {
       for(var j=0; j < countStars.length; j++){
         var max = Math.max(...countStars);
         if(max === 0){
-          for(var k = i; k<4; k++){
-            getIndexStars[k] = Math.floor(Math.random()*(countStars.length - 1));
-          }
-          break;
+          break; 
         } else if(max === countStars[j]){
           getIndexStars[i] = j;
           countStars[j] = 0;
@@ -59,11 +55,8 @@ function App() {
       getRepos.data.map((repos, index) =>(
         countStars[index] = getRepos.data[index].stargazers_count
       ))
-      console.log(countStars);
-      getTop4();
 
-      console.log(getRepos);
-      console.log(getIndexStars);
+      getTop4();
 
       getIndexStars.map((rep, index) => (
         repos[index] = getRepos.data[rep].name
@@ -85,7 +78,6 @@ function App() {
       const countRepo = response.data.public_repos;
       const countFollows = response.data.followers;
 
-
       setRepo(countRepo);
       setFoll(countFollows);
       setBio(profile_bio);
@@ -101,22 +93,21 @@ function App() {
   }
 
   function toggleMode(){
-    setTheme(!theme);
-    localStorage.setItem('theme', theme);
+    setThemeString(!themeString);
   }
 
 
   return (
-    <ThemeProvider theme={{mode: theme}}>
+    <ThemeProvider theme={{mode: themeString}}>
       <>
     <GlobalStyles/>
     <div className="full-container">
       <div className="left-container">
-      <button onClick={() => toggleMode()} className="switch-style">
-        <FaLightbulb size={16} color={!theme ? "#0072b1" : "#FFF000"} />
+        <button onClick={() => toggleMode()} className="switch-style">
+        <FaLightbulb size={16} color={!themeString ? "#0072b1" : "#FFF000"} />
       </button>
         <form className="user-form" onSubmit={requestData}>
-          <img src={!theme ? blacklogo3 : logo3} alt="img"/>
+          <img src={!themeString ? blacklogo3 : logo3} alt="img"/>
         <p>Digite um username</p>
         <input placeholder="Username" value={user} onChange={e => setUser(e.target.value)} className="input-class"/>
         <button type="submit" className="button"> Confirmar </button>
@@ -130,7 +121,7 @@ function App() {
           <div className= 'div-informations'>
         {userLabel !== '' ? (
           <img src={urlImage} width="150px" height="150px" alt="img"/>           
-        ) : <img src={!theme ? blacklogo2 : logo2} alt="img"/>}
+        ) : <img src={!themeString ? blacklogo2 : logo2} alt="img"/>}
               {userLabel !== '' ? (
                 <div>
                 <i>{bio}</i>
@@ -148,10 +139,10 @@ function App() {
             </div>
           <div>
           <p> 
-          <GoRepoForked size={16} color={!theme ? "#24292e" : "#F2F2F2"} /> {forks[index]}
+          <GoRepoForked size={16} color={!themeString ? "#24292e" : "#F2F2F2"} /> {forks[index]}
           </p>
           <p> 
-          <GoStar size={16} color={!theme ? "#24292e" : "#F2F2F2"} /> {stars[index]}
+          <GoStar size={16} color={!themeString ? "#24292e" : "#F2F2F2"} /> {stars[index]}
           </p>
           </div>
         </div>
