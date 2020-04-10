@@ -18,7 +18,7 @@ Utilizar a [api do github](https://developer.github.com/v3/) para buscar e exibi
 
 ## Acréscimos: 
 
-- Caso o usuário possua menos de 4 repositórios com mais de uma estrela, será apresentado o número de repositórios com mais de uma estrela. 
+- Caso o usuário possua menos de 4 repositórios com mais de uma estrela, será apresentado o número de repositórios com mais de uma estrela. Como a ideia é estabelecer um ranking, não faz sentido exibir repositórios com estrelas zeradas.
 - A maior dificuldade do projeto girou em torno de manter o escolhido pelo usuário mesmo após o realod da página. Após algumas pesquisas, resolvi usar o método descrito [aqui](https://markoskon.com/dark-mode-in-react/). Ele utiliza um hook personalizado, o `useLocalStorage()`. 
 
 
